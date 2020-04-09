@@ -17,11 +17,9 @@ const tableSchema = new mongoose.Schema({
     coordinates: {
         x: {
             type: Number,
-            required: true
         },
         y: {
             type: Number,
-            required: true
         }  
     }
 });

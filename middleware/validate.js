@@ -16,6 +16,31 @@ exports.validateMenuRules = () => {
 	]
 }
 
+exports.validateMenuUpdateRules = () => {
+	return [
+		check('name').optional().not().isEmpty().withMessage("empty"),
+        check('category').optional().not().isEmpty().withMessage("empty"),
+        check('description').optional().not().isEmpty().withMessage("empty"),
+        check('price').optional().not().isEmpty().withMessage("empty")
+	]
+}
+
+exports.validateReservationRules = () => {
+	return [
+		check('name').not().isEmpty().withMessage("required"),
+        check('surname').not().isEmpty().withMessage("required"),
+        check('table').not().isEmpty().withMessage("required"),
+        check('price').not().isEmpty().withMessage("required")
+	]
+}
+
+exports.validateTableRules = () => {
+	return [
+		check('size').not().isEmpty().withMessage("required").isNumeric().withMessage("NaN"),
+        check('number').not().isEmpty().withMessage("required").isNumeric().withMessage("NaN"),
+	]
+}
+
 exports.validate = (req, res, next) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {
