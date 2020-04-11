@@ -121,7 +121,7 @@ router.post('/', auth, validateMenuRules(), validate, async (req, res) => {
 				errors: [
 					{
 						param: "system",
-						message:'SYSTEM_ERROR'
+						message: 'SYSTEM_ERROR'
 					}
 				]
 			});
