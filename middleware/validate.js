@@ -29,8 +29,9 @@ exports.validateReservationRules = () => {
 	return [
 		check('name').not().isEmpty().withMessage("required"),
         check('surname').not().isEmpty().withMessage("required"),
+        check('email').not().isEmpty().withMessage("required").isEmail().withMessage("email"),
         check('table').not().isEmpty().withMessage("required"),
-        check('price').not().isEmpty().withMessage("required")
+        check('date').not().isEmpty().withMessage("required")
 	]
 }
 

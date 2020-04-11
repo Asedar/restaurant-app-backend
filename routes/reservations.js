@@ -189,18 +189,19 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
 			]
 		});
 	} else {
-		let lowerDate = new Date(req.body.date);
+		let lowerDate = new Date(req.body.date,);
 		let upperDate = new Date(req.body.date);
-		lowerDate.setHours(lowerDate.getHours() - config.get('reservationTime'));
-		upperDate.setHours(lowerDate.getHours() + config.get('reservationTime'));
-		const reservations = Reservation.find({"date": {"$gt": lowerDate, "$lt": upperDate}, "table": req.body.table})
-		if(reservations) {
+		let time = parseInt(config.get('reservationTime'));
+		lowerDate.setHours(lowerDate.getHours() - time);
+		upperDate.setHours(upperDate.getHours() + time);
+		const reservations = await Reservation.find({"date": {"$gte": lowerDate, "$lt": upperDate}, "table": req.body.table})
+		if(reservations.length > 0) {
 			res.status(400).json({
 				status: 400, 
 				errors: [
 					{
 						param: "table",
-						message:'NOT_AVAILABLE'
+						message:"NOT_AVAILABLE",
 					}
 				]
 			});

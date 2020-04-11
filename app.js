@@ -15,6 +15,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const tables = require('./routes/tables');
 const menu = require('./routes/menu');
 const reservations = require('./routes/reservations');
 const bodyParser = require('body-parser');
@@ -29,6 +30,7 @@ app.use('/api/auth', auth);
 app.use('/api/users', users);
 app.use('/api/menu', menu);
 app.use('/api/reservations', reservations);
+app.use('/api/tables', tables);
 app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 mongoose.set('useCreateIndex', true);

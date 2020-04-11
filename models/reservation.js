@@ -14,7 +14,7 @@ const reservationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    surName: {
+    surname: {
         type: String,
         required: true
     },

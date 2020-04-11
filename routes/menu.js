@@ -163,7 +163,7 @@ router.post('/', auth, validateMenuRules(), validate, async (req, res) => {
  */
 
 router.patch('/:id', auth, validateMenuUpdateRules(), validate, async (req, res) => {
-	const menu = await Menu.find(req.params.id);
+	const menu = await Menu.find({_id: req.params.id});
 	if (!menu) return res.status(400).json({
 		status: 400, 
 		errors: [
