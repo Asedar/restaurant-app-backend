@@ -78,6 +78,34 @@ router.get('/', async (req, res) => {
 /**
  * @swagger
  *
+ * /menu/:id:
+ *   get:
+ *     tags: [menu]
+ *     description: Get single Menu item
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Menu list
+ *         schema:
+ *           $ref: '#/definitions/response'
+ *       400:
+ *         description: Error
+ *         schema:
+ *           $ref: '#/definitions/error'
+ */
+
+router.get('/:id', async (req, res) => {
+    const menu = await Menu.find({_id: req.params.id});
+	res.status(200).json({
+		status: 200,
+		data: menu
+	});
+});
+
+/**
+ * @swagger
+ *
  * /menu:
  *   post:
  *     tags: [menu]

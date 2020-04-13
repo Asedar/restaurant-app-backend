@@ -2,9 +2,28 @@ const config = require('config');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
+const nodemailer = require("nodemailer");
+const hbs = require('nodemailer-express-handlebars');
 const {Reservation} = require("../models/reservation");
 const {Table} = require("../models/table");
 const { validateReservationRules, validate } = require('../middleware/validate.js');
+
+const transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: config.get('email'),
+	  pass: config.get('password')
+	}
+});
+transporter.use('compile', hbs({
+	viewEngine: {
+		partialsDir: './src/',
+		extName: '.handlebars',
+		layoutsDir: './src/',
+	},
+	viewPath: './src/',
+	extName: '.handlebars'
+}));
 
 /**
  * @swagger
@@ -207,8 +226,18 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
 			});
 		} else {
 			let reservation = new Reservation(req.body);
-			await reservation.save((err)=>{
+			await reservation.save(async (err)=>{
 				if(!err) {
+					let info = await transporter.sendMail({
+						from: 'Restauracja "Pod Kleponczkiem"',
+						to: req.body.email,
+						subject: 'Potwierdzenie rezerwacji w restauracji "Pod Kleponczkiem"',
+						template: 'main',
+						context: {
+							link: 'http://google.com'
+						}
+					});
+
 					res.status(201).json({
 						status: 201, 
 						message: "RESERVATION_COMPLETE"
