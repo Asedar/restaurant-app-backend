@@ -234,6 +234,9 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
 						subject: 'Potwierdzenie rezerwacji w restauracji "Pod Kleponczkiem"',
 						template: 'main',
 						context: {
+							name: req.body.name,
+							surname: req.body.surname,
+							date: req.body.date,
 							link: 'http://google.com'
 						}
 					});
