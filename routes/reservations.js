@@ -196,6 +196,18 @@ router.get('/all', auth, async (req, res) => {
  *           $ref: '#/definitions/error'
  */
 router.post('/', validateReservationRules(), validate, async (req, res) => {
+	let checkDate = new Date(req.body.date);
+	if(checkDate < Date.now()) {
+		return res.status(400).json({
+			status: 400, 
+			errors: [
+				{
+					param: "date",
+					message:'WRONG_DATE'
+				}
+			]
+		});
+	}
 	const table = await Table.find({_id: req.body.table});
 	if(!table) {
 		res.status(400).json({
@@ -259,6 +271,54 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
 			});
 		}
 	}
+});
+
+ /**
+ * @swagger
+ *
+ * /reservations/:id:
+ *   delete:
+ *     tags: [reservations]
+ *     description: Delete specified reservation
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: x-auth-token
+ *         description: Admin's JWT
+ *         in:  header
+ *         required: true
+ *         type: string
+ *         schema:
+ *           $ref: '#/definitions/token'
+ *     responses:
+ *       200:
+ *         description: Success
+ *       400:
+ *         description: Error
+ *         schema:
+ *           $ref: '#/definitions/error'
+ */
+router.delete('/:id', auth, async (req, res) => {
+    Reservation.remove({ _id: req.params.id }, function(err) {
+		if (!err) {
+			res.status(200).json({
+				status: 200,
+				message: "DELETED"
+			});
+		}
+		else {
+			res.status(400).json({
+				status: 400,
+				errors: [
+					{
+						param: "system",
+						message:'SYSTEM_ERROR'
+					}
+				]
+			});
+		}
+	});
+	
 });
 
 module.exports = router;
