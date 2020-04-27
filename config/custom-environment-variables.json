@@ -4,5 +4,6 @@
     "tokenLifetime": "24h",
     "reservationTime": "2",
     "email": "mail",
-    "password": "pass"
+    "password": "pass",
+    "url": "url"
 }

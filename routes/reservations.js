@@ -249,7 +249,7 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
 							name: req.body.name,
 							surname: req.body.surname,
 							date: req.body.date,
-							link: 'http://google.com'
+							link: config.get('url') + reservation._id
 						}
 					});
 
@@ -298,7 +298,7 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
  *         schema:
  *           $ref: '#/definitions/error'
  */
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', async (req, res) => {
     Reservation.remove({ _id: req.params.id }, function(err) {
 		if (!err) {
 			res.status(200).json({
