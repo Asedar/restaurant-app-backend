@@ -19,13 +19,6 @@ const { validateTableRules, validate } = require('../middleware/validate.js');
  *         type: number
  *       size:
  *         type: number
- *       coordinates:
- *         type: object
- *         properties:
- *           x:
- *             type: number
- *           y:
- *             type: number
  *   token:
  *     type: object
  *     properties:
@@ -45,7 +38,7 @@ const { validateTableRules, validate } = require('../middleware/validate.js');
  *               type: string
  *             message: 
  *               type: string
- *   response:
+ *   Response:
  *     type: object
  *     properties:
  *       status:
@@ -75,7 +68,7 @@ const { validateTableRules, validate } = require('../middleware/validate.js');
  *       200:
  *         description: Table list
  *         schema:
- *           $ref: '#/definitions/response'
+ *           $ref: '#/definitions/Response'
  *       400:
  *         description: Error
  *         schema:
