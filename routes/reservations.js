@@ -92,7 +92,7 @@ transporter.use('compile', hbs({
  *               type: string
  *             message: 
  *               type: string
- *   response:
+ *   Response:
  *     type: object
  *     properties:
  *       status:
@@ -156,7 +156,7 @@ router.get('/', async (req, res) => {
  *       200:
  *         description: Reservations list
  *         schema:
- *           $ref: '#/definitions/response'
+ *           $ref: '#/definitions/Response'
  *       400:
  *         description: Error
  *         schema:
@@ -282,14 +282,6 @@ router.post('/', validateReservationRules(), validate, async (req, res) => {
  *     description: Delete specified reservation
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: x-auth-token
- *         description: Admin's JWT
- *         in:  header
- *         required: true
- *         type: string
- *         schema:
- *           $ref: '#/definitions/token'
  *     responses:
  *       200:
  *         description: Success
